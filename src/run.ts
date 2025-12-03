@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import { getPaths } from "./getPaths.ts";
 import { isFlag } from "./isFlag.ts";
+import { formatDuration } from "@t8/date-format";
 
 const exec = promisify(defaultExec);
 const execOutput = async (cmd: string) => (await exec(cmd)).stdout.trim();
@@ -134,14 +135,18 @@ async function runCodeShape() {
   }
 }
 
-async function run() {
+async function watch(label: string, action: () => Promise<void>) {
   let log = argv.includes("--silent") ? () => {} : console.log;
+  let t0 = Date.now();
 
-  log("typecheck [tsgo]");
-  await runTypeCheck();
+  log(label);
+  await action();
+  log(`${formatDuration(Date.now() - t0)}\n`);
+}
 
-  log("lint and format [biome]");
-  await runCodeShape();
+async function run() {
+  await watch("typecheck [tsgo]", runTypeCheck);
+  await watch("lint and format [biome]", runCodeShape);
 }
 
 type ExecError = {

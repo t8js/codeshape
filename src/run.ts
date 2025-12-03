@@ -135,7 +135,12 @@ async function runCodeShape() {
 }
 
 async function run() {
+  let log = argv.includes("--silent") ? () => {} : console.log;
+
+  log("typecheck [tsgo]");
   await runTypeCheck();
+
+  log("lint and format [biome]");
   await runCodeShape();
 }
 

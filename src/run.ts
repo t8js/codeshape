@@ -7,10 +7,11 @@ import { formatDuration } from "@t8/date-format";
 import { getPaths } from "./getPaths.ts";
 import { isFlag } from "./isFlag.ts";
 
+const { argv } = process;
+
 const exec = promisify(defaultExec);
 const execOutput = async (cmd: string) => (await exec(cmd)).stdout.trim();
-
-const { argv } = process;
+const log = argv.includes("--silent") ? () => {} : console.log;
 
 let tempFiles: string[] = [];
 
@@ -49,7 +50,11 @@ function getCommitMessage() {
 async function runTypeCheck() {
   if (!argv.includes("--typecheck")) return;
 
+  let t0 = Date.now();
+  log("typecheck [tsgo]");
+
   let { stdout, stderr } = await exec("tsgo --noEmit");
+  log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stdout) console.log(stdout);
 
@@ -72,6 +77,9 @@ type BiomeConfig = {
 };
 
 async function runCodeShape() {
+  let t0 = Date.now();
+  log("lint and format [biome]");
+
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");
 
@@ -117,6 +125,7 @@ async function runCodeShape() {
   let { stdout, stderr } = await exec(
     `npx @biomejs/biome check --write ${(await getPaths()).join(" ")}`,
   );
+  log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stderr) console.log(stderr);
   if (stdout) console.log(stdout);
@@ -135,18 +144,9 @@ async function runCodeShape() {
   }
 }
 
-async function watch(label: string, action: () => Promise<void>) {
-  let log = argv.includes("--silent") ? () => {} : console.log;
-  let t0 = Date.now();
-
-  log(label);
-  await action();
-  log(`${formatDuration(Date.now() - t0)}\n`);
-}
-
 async function run() {
-  await watch("typecheck [tsgo]", runTypeCheck);
-  await watch("lint and format [biome]", runCodeShape);
+  await runTypeCheck();
+  await runCodeShape();
 }
 
 type ExecError = {

@@ -1,6 +1,6 @@
 {
   "name": "codeshape",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Code checking utility: typecheck + lint + format",
   "bin": {
     "codeshape": "dist/run.js"

@@ -47,7 +47,7 @@ function getCommitMessage() {
 }
 
 async function runTypeCheck() {
-  if (argv.includes("--no-typecheck")) return;
+  if (!argv.includes("--typecheck")) return;
 
   let { stdout, stderr } = await exec("tsgo --noEmit");
 

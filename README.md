@@ -3,7 +3,7 @@
 Code checking utility, a thin abstraction layer over evolving toolsets:
 
 - typecheck (with *tsgo* from `@typescript/native-preview`)
-  - opt out with `--no-typecheck`
+  - opt in with `--typecheck`
 - lint + format (with *biome*)
   - opt out from fix commits with `--no-commit`
   - opt out from using `.gitignore` with `--vcs-disabled`

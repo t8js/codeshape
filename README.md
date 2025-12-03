@@ -1,7 +1,11 @@
 # codeshape
 
-Codestyle utility: linting + formatting
+Code checking utility, a thin abstraction layer over evolving toolsets:
 
-```
-npx codeshape <path> [...<more_paths>]
-```
+- typecheck (with *tsgo* from `@typescript/native-preview`)
+  - opt out with `--no-ts`
+- lint + format (with *biome*)
+  - opt out from fix commits with `--no-commit`
+  - opt out from using `.gitignore` with `--vcs-disabled`
+
+Usage: `npx codeshape <path> [...<more_paths>]`

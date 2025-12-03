@@ -1,7 +1,7 @@
 {
   "name": "codeshape",
   "version": "2.3.14",
-  "description": "Codestyle utility: linting + formatting",
+  "description": "Code checking utility: typecheck + lint + format",
   "bin": {
     "codeshape": "dist/run.js"
   },

@@ -46,6 +46,19 @@ function getCommitMessage() {
   return k !== -1 && argv[k + 1] && !isFlag(argv[k + 1]) ? argv[k + 1] : "lint";
 }
 
+async function runTypeCheck() {
+  if (argv.includes("--no-ts")) return;
+
+  let { stdout, stderr } = await exec("tsgo --noEmit");
+
+  if (stdout) console.log(stdout);
+
+  if (stderr) {
+    console.log(stderr);
+    process.exit(1);
+  }
+}
+
 type BiomeConfig = {
   $schema?: string;
   files?: {
@@ -58,7 +71,7 @@ type BiomeConfig = {
   };
 };
 
-async function run() {
+async function runCodeShape() {
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");
 
@@ -118,6 +131,11 @@ async function run() {
       if (updated) await exec(`git commit -m ${JSON.stringify(getCommitMessage())}`);
     } catch {}
   }
+}
+
+async function run() {
+  await runTypeCheck();
+  await runCodeShape();
 }
 
 type ExecError = {

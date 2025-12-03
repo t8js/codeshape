@@ -13,7 +13,7 @@
     "lint": "node dist/run.js",
     "prepublishOnly": "npm run build",
     "preversion": "npx npm-run-all typecheck build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsgo --noEmit"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "22.15.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20251203.1"
   }
 }

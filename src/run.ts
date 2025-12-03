@@ -34,8 +34,7 @@ async function canAccess(path: string) {
   try {
     await access(path);
     return true;
-  }
-  catch {
+  } catch {
     return false;
   }
 }
@@ -80,17 +79,18 @@ async function runCodeShape() {
       .toString()
       .trim()
       .split(/\r?\n/)
-      .filter(x => x !== "");
-  }
-  catch {}
+      .filter((x) => x !== "");
+  } catch {}
 
-  let hasOwnConfig = (await Promise.all(
-    ["./biome.json", "./biome.jsonc"].map(canAccess),
-  )).includes(true);
+  let hasOwnConfig = (
+    await Promise.all(["./biome.json", "./biome.jsonc"].map(canAccess))
+  ).includes(true);
 
   if (!hasOwnConfig) {
     let configPath = join(__dirname, "_biome.json");
-    let config = JSON.parse((await readFile(configPath)).toString()) as BiomeConfig;
+    let config = JSON.parse(
+      (await readFile(configPath)).toString(),
+    ) as BiomeConfig;
 
     delete config.$schema;
 
@@ -128,7 +128,8 @@ async function runCodeShape() {
 
       let updated = (await execOutput("git diff --cached --name-only")) !== "";
 
-      if (updated) await exec(`git commit -m ${JSON.stringify(getCommitMessage())}`);
+      if (updated)
+        await exec(`git commit -m ${JSON.stringify(getCommitMessage())}`);
     } catch {}
   }
 }

@@ -3,8 +3,8 @@ import { exec as defaultExec } from "node:child_process";
 import { access, readFile, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import { getPaths } from "./getPaths";
-import { isFlag } from "./isFlag";
+import { getPaths } from "./getPaths.ts";
+import { isFlag } from "./isFlag.ts";
 
 const exec = promisify(defaultExec);
 const execOutput = async (cmd: string) => (await exec(cmd)).stdout.trim();

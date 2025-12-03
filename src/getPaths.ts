@@ -1,4 +1,4 @@
-import { isFlag } from "./isFlag";
+import { isFlag } from "./isFlag.ts";
 
 export async function getPaths(): Promise<string[]> {
   let paths: string[] = [];

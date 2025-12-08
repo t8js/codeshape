@@ -7,6 +7,7 @@ Code checking utility, a thin abstraction layer over evolving toolsets:
   - use `--typecheck-only` to run it without other checks
 - lint + format (with *biome*)
   - use `--no-commit` to skip the fix commit
+  - use `-m <message>` to set a fix commit message (default: `lint`)
   - use `--vcs-disabled` to opt out from using `.gitignore`
 
 Usage: `npx codeshape <path> [...<more_paths>]`

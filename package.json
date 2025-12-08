@@ -11,7 +11,7 @@
     "build-config": "node -e \"require('node:fs').cpSync('src/_biome.json', 'dist/_biome.json');\"",
     "clean": "node -e \"require('node:fs').rmSync('dist', { force: true, recursive: true });\"",
     "prepublishOnly": "npm run build",
-    "preversion": "npx npm-run-all shape build",
+    "preversion": "npx npm-run-all build shape",
     "shape": "node dist/run.js --typecheck"
   },
   "repository": {

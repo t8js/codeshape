@@ -143,11 +143,9 @@ async function runCodeShape() {
 }
 
 async function run() {
-  if (argv.includes("--typecheck-only"))
-    return await runTypeCheck();
+  if (argv.includes("--typecheck-only")) return await runTypeCheck();
 
-  if (argv.includes("--typecheck"))
-    await runTypeCheck();
+  if (argv.includes("--typecheck")) await runTypeCheck();
 
   await runCodeShape();
 }

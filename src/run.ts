@@ -48,8 +48,6 @@ function getCommitMessage() {
 }
 
 async function runTypeCheck() {
-  if (!argv.includes("--typecheck")) return;
-
   let t0 = Date.now();
   log("typecheck [tsgo]");
 
@@ -145,7 +143,12 @@ async function runCodeShape() {
 }
 
 async function run() {
-  await runTypeCheck();
+  if (argv.includes("--typecheck-only"))
+    return await runTypeCheck();
+
+  if (argv.includes("--typecheck"))
+    await runTypeCheck();
+
   await runCodeShape();
 }
 

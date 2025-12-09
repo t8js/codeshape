@@ -1,11 +1,11 @@
-import { join } from "node:path";
-import { getArgValue } from "./utils/getArgValue.ts";
 import { copyFile } from "node:fs/promises";
-import { exec } from "./utils/exec.ts";
-import { log } from "./utils/log.ts";
+import { join } from "node:path";
 import { formatDuration } from "@t8/date-format";
-import { tempFiles } from "./utils/tempFiles.ts";
 import { currentDirName } from "./utils/currentDirName.ts";
+import { exec } from "./utils/exec.ts";
+import { getArgValue } from "./utils/getArgValue.ts";
+import { log } from "./utils/log.ts";
+import { tempFiles } from "./utils/tempFiles.ts";
 
 export async function emitTypes() {
   let t0 = Date.now();
@@ -17,7 +17,7 @@ export async function emitTypes() {
     configPath = `./tsconfig.${Math.random().toString(36).slice(2)}.json`;
 
     await copyFile(join(currentDirName, "_tsconfig.json"), configPath);
-    
+
     tempFiles.push(configPath, "emit-types");
   }
 

@@ -1,10 +1,10 @@
 import { unlink } from "node:fs/promises";
-import { ScriptTag } from "../types/ScriptTag.ts";
+import type { ScriptTag } from "../types/ScriptTag.ts";
 
 let taggedList: {
   path: string;
   tag: ScriptTag;
-  removed?: boolean; 
+  removed?: boolean;
 }[] = [];
 
 export let tempFiles = {
@@ -13,7 +13,7 @@ export let tempFiles = {
   },
   async remove(tag: ScriptTag) {
     await Promise.all(
-      taggedList.map(async item => {
+      taggedList.map(async (item) => {
         if (item.removed || (tag !== "all" && item.tag !== tag)) return;
 
         try {
@@ -28,5 +28,5 @@ export let tempFiles = {
 
       if (item.removed) taggedList.splice(i, 1);
     }
-  }
+  },
 };

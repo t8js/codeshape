@@ -1,15 +1,15 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { canAccess } from "./utils/canAccess.ts";
-import { log } from "./utils/log.ts";
 import { join } from "node:path";
-import { BiomeConfig } from "./types/BiomeConfig.ts";
-import { tempFiles } from "./utils/tempFiles.ts";
-import { exec } from "./utils/exec.ts";
-import { getPaths } from "./utils/getPaths.ts";
 import { formatDuration } from "@t8/date-format";
+import type { BiomeConfig } from "./types/BiomeConfig.ts";
+import { canAccess } from "./utils/canAccess.ts";
+import { currentDirName } from "./utils/currentDirName.ts";
+import { exec } from "./utils/exec.ts";
 import { execOutput } from "./utils/execOutput.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
-import { currentDirName } from "./utils/currentDirName.ts";
+import { getPaths } from "./utils/getPaths.ts";
+import { log } from "./utils/log.ts";
+import { tempFiles } from "./utils/tempFiles.ts";
 
 export async function runLintFormat() {
   let t0 = Date.now();
@@ -74,7 +74,9 @@ export async function runLintFormat() {
       let updated = (await execOutput("git diff --cached --name-only")) !== "";
 
       if (updated)
-        await exec(`git commit -m ${JSON.stringify(getArgValue("-m", "lint"))}`);
+        await exec(
+          `git commit -m ${JSON.stringify(getArgValue("-m", "lint"))}`,
+        );
     } catch {}
   }
 }

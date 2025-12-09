@@ -24,7 +24,7 @@ export async function emitTypes() {
   }
 
   let { stdout, stderr } = await exec(
-    `dts-bundle-generator -o ${outputFile} --project ${configPath} --no-banner ${inputFile}`,
+    `dts-bundle-generator -o ${outputFile} --project ${configPath} --export-referenced-types --silent --no-banner ${inputFile}`,
   );
   log(`${formatDuration(Date.now() - t0)}\n`);
 

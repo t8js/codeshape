@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npx npm-run-all clean build-bin build-config",
     "build-bin": "npx esbuild ./src/run.ts --bundle --outdir=dist --platform=node",
-    "build-config": "node -e \"require('node:fs').cpSync('src/_biome.json', 'dist/_biome.json');\"",
+    "build-config": "node src/scripts/init.ts",
     "clean": "node -e \"require('node:fs').rmSync('dist', { force: true, recursive: true });\"",
     "prepublishOnly": "npm run build",
     "preversion": "npx npm-run-all build shape",

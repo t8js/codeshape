@@ -7,7 +7,6 @@ import { tempFiles } from "./utils/tempFiles";
 import { exec } from "./utils/exec";
 import { getPaths } from "./utils/getPaths";
 import { formatDuration } from "@t8/date-format";
-import { cleanup } from "./utils/cleanup";
 import { execOutput } from "./utils/execOutput";
 import { getArgValue } from "./utils/getArgValue";
 
@@ -54,7 +53,7 @@ export async function runLintFormat() {
 
     await writeFile("./biome.json", JSON.stringify(config, null, 2));
 
-    tempFiles.push("./biome.json");
+    tempFiles.push("./biome.json", "lint-format");
   }
 
   let { stdout, stderr } = await exec(
@@ -65,7 +64,7 @@ export async function runLintFormat() {
   if (stderr) console.log(stderr);
   if (stdout) console.log(stdout);
 
-  await cleanup();
+  await tempFiles.remove("lint-format");
 
   if (isGitDir && !stderr && !process.argv.includes("--no-commit")) {
     try {

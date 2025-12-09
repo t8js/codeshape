@@ -5,7 +5,6 @@
     "emitDeclarationOnly": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "target": "esnext",
-    "outFile": "dist/index.d.ts",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,

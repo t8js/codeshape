@@ -9,9 +9,10 @@ import { tempFiles } from "./utils/tempFiles.ts";
 
 export async function emitTypes() {
   let t0 = Date.now();
-  log("emit types [tsgo]");
+  log("emit types [dts-bundle-generator]");
 
-  let configPath = getArgValue("--project") ?? getArgValue("-p");
+  let configPath = getArgValue("--tsconfig");
+  let emitFile = getArgValue("--emit-file", "dist/index.d.ts");
 
   if (!configPath) {
     configPath = `./tsconfig.${Math.random().toString(36).slice(2)}.json`;
@@ -21,7 +22,7 @@ export async function emitTypes() {
     tempFiles.push(configPath, "emit-types");
   }
 
-  let { stdout, stderr } = await exec(`tsgo -p ${configPath}`);
+  let { stdout, stderr } = await exec(`dts-bundle-generator -o ${emitFile} --project ${configPath} --no-banner`);
   log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stderr) console.log(stderr);

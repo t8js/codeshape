@@ -22,7 +22,9 @@ export async function emitTypes() {
     tempFiles.push(configPath, "emit-types");
   }
 
-  let { stdout, stderr } = await exec(`dts-bundle-generator -o ${emitFile} --project ${configPath} --no-banner`);
+  let { stdout, stderr } = await exec(
+    `dts-bundle-generator -o ${emitFile} --project ${configPath} --no-banner`,
+  );
   log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stderr) console.log(stderr);

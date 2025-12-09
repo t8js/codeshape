@@ -2,12 +2,13 @@
   "name": "codeshape",
   "version": "2.4.6",
   "description": "Code checking utility: typecheck + lint + format",
+  "type": "module",
   "bin": {
     "codeshape": "dist/run.js"
   },
   "scripts": {
     "build": "npx npm-run-all clean build-bin build-config",
-    "build-bin": "npx esbuild ./src/run.ts --bundle --outdir=dist --platform=node",
+    "build-bin": "npx esbuild ./src/run.ts --bundle --outdir=dist --platform=node --format=esm",
     "build-config": "node src/scripts/init.ts",
     "clean": "node -e \"require('node:fs').rmSync('dist', { force: true, recursive: true });\"",
     "prepublishOnly": "npm run build",

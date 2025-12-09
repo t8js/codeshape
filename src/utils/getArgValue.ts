@@ -1,4 +1,4 @@
-import { isFlag } from "./isFlag";
+import { isFlag } from "./isFlag.ts";
 
 let { argv } = process;
 

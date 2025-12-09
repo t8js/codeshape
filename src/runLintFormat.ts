@@ -1,14 +1,15 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { canAccess } from "./utils/canAccess";
-import { log } from "./utils/log";
+import { canAccess } from "./utils/canAccess.ts";
+import { log } from "./utils/log.ts";
 import { join } from "node:path";
-import { BiomeConfig } from "./types/BiomeConfig";
-import { tempFiles } from "./utils/tempFiles";
-import { exec } from "./utils/exec";
-import { getPaths } from "./utils/getPaths";
+import { BiomeConfig } from "./types/BiomeConfig.ts";
+import { tempFiles } from "./utils/tempFiles.ts";
+import { exec } from "./utils/exec.ts";
+import { getPaths } from "./utils/getPaths.ts";
 import { formatDuration } from "@t8/date-format";
-import { execOutput } from "./utils/execOutput";
-import { getArgValue } from "./utils/getArgValue";
+import { execOutput } from "./utils/execOutput.ts";
+import { getArgValue } from "./utils/getArgValue.ts";
+import { currentDirName } from "./utils/currentDirName.ts";
 
 export async function runLintFormat() {
   let t0 = Date.now();
@@ -30,7 +31,7 @@ export async function runLintFormat() {
   ).includes(true);
 
   if (!hasOwnConfig) {
-    let configPath = join(__dirname, "_biome.json");
+    let configPath = join(currentDirName, "_biome.json");
     let config = JSON.parse(
       (await readFile(configPath)).toString(),
     ) as BiomeConfig;

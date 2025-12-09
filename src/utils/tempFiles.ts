@@ -1,5 +1,5 @@
 import { unlink } from "node:fs/promises";
-import { ScriptTag } from "../types/ScriptTag";
+import { ScriptTag } from "../types/ScriptTag.ts";
 
 let taggedList: {
   path: string;

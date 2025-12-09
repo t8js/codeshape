@@ -1,6 +1,6 @@
 import { formatDuration } from "@t8/date-format";
-import { exec } from "./utils/exec";
-import { log } from "./utils/log";
+import { exec } from "./utils/exec.ts";
+import { log } from "./utils/log.ts";
 
 export async function runTypeCheck() {
   let t0 = Date.now();

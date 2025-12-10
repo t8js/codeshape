@@ -17,4 +17,6 @@ Code checking utility, a thin abstraction layer over evolving toolsets:
   - use `-m <message>` to set a fix commit message (default: `lint`)
   - use `--vcs-disabled` to opt out from using `.gitignore`
 
-Usage: `npx codeshape <path> [...<more_paths>]`
+Usage: `npx codeshape <path> [...<more_paths>] [...--flags]`
+
+Example: `npx codeshape --typecheck --emit-types` (with `index.ts` as an entry point for the type emitter)

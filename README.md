@@ -12,6 +12,8 @@ Code checking utility, a thin abstraction layer over evolving toolsets:
     - replacing occasional single quotes and tabs with double quotes and spaces to comply with the general code style
   - use `--emit-untweaked-types` to emit a type declaration file without the follow-up tweaks
   - use `--emit-types-only` or `--emit-untweaked-types-only` to skip other tasks
+  - use `--emit-input <path>` (default: `index.ts`) and `--emit-output <path>` (default: `dist/index.d.ts`) to set an entry point and an output file
+  - use `--tsconfig <path>` to point to a custom TS config file
 - Lint + format (with `@biomejs/biome`)
   - use `--no-commit` to skip the fix commit
   - use `-m <message>` to set a fix commit message (default: `lint`)
@@ -19,4 +21,4 @@ Code checking utility, a thin abstraction layer over evolving toolsets:
 
 Usage: `npx codeshape <path> [...<more_paths>] [...--flags]`
 
-Example: `npx codeshape --typecheck --emit-types` (with `index.ts` as an entry point for the type emitter)
+Example: `npx codeshape --typecheck --emit-types`

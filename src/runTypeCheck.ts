@@ -4,7 +4,7 @@ import { log } from "./utils/log.ts";
 
 export async function runTypeCheck() {
   let t0 = Date.now();
-  log("typecheck [tsgo]");
+  log("Typecheck [tsgo]");
 
   let { stdout, stderr } = await exec("tsgo --noEmit");
   log(`${formatDuration(Date.now() - t0)}\n`);

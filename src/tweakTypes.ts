@@ -184,7 +184,7 @@ function collapseBlankLines(s: string) {
 
 export async function tweakTypes() {
   let t0 = Date.now();
-  log("tweak types");
+  log("Tweak types");
 
   let { outputFile } = getEmitOptions();
   let s0 = (await readFile(outputFile)).toString();

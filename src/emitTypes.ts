@@ -10,7 +10,7 @@ import { tempFiles } from "./utils/tempFiles.ts";
 
 export async function emitTypes() {
   let t0 = Date.now();
-  log("emit types [dts-bundle-generator]");
+  log("Emit types [dts-bundle-generator]");
 
   let configPath = getArgValue("--tsconfig");
   let { inputFile, outputFile } = getEmitOptions();

@@ -13,7 +13,7 @@ import { tempFiles } from "./utils/tempFiles.ts";
 
 export async function runLintFormat() {
   let t0 = Date.now();
-  log("lint and format [biome]");
+  log("Lint and format [biome]");
 
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");

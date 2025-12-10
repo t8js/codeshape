@@ -4,20 +4,18 @@ import { getEmitOptions } from "./utils/getEmitOptions.ts";
 import { log } from "./utils/log.ts";
 
 function collapseComments(s: string) {
+  let c = Array.from(s);
   let lastLineEnd = -1;
   let lastClosing = -1;
 
-  for (let i = s.length - 1; i >= 0; i--) {
-    let c = s[i],
-      prev = s[i + 1] ?? "";
-
-    if (c === "*" && prev === "/") lastClosing = i + 2;
-    else if (c === "\r" && prev === "\n") lastLineEnd = i;
-    else if (c === "\n") lastLineEnd = i;
-    else if (c === "/" && prev === "*")
-      s = `${s.slice(0, i)}/*#${i},${lastClosing}*/${s.slice(lastClosing)}`;
-    else if (c === "/" && prev === "/")
-      s = `${s.slice(0, i)}/*#${i},${lastLineEnd}*/${s.slice(lastLineEnd)}`;
+  for (let i = c.length - 1; i >= 0; i--) {
+    if (c[i] === "*" && c[i + 1] === "/") lastClosing = i + 2;
+    else if (c[i] === "\r" && c[i + 1] === "\n") lastLineEnd = i;
+    else if (c[i] === "\n") lastLineEnd = i;
+    else if (c[i] === "/" && c[i + 1] === "*")
+      s = `${c.slice(0, i).join("")}/*#${i},${lastClosing}*/${c.slice(lastClosing).join("")}`;
+    else if (c[i] === "/" && c[i + 1] === "/")
+      s = `${c.slice(0, i).join("")}/*#${i},${lastLineEnd}*/${c.slice(lastLineEnd).join("")}`;
   }
 
   return s;

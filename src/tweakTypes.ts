@@ -1,14 +1,15 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { log } from "./utils/log.ts";
 import { formatDuration } from "@t8/date-format";
 import { getEmitOptions } from "./utils/getEmitOptions.ts";
+import { log } from "./utils/log.ts";
 
 function collapseComments(s: string) {
   let lastLineEnd = -1;
   let lastClosing = -1;
 
   for (let i = s.length - 1; i >= 0; i--) {
-    let c = s[i], prev = s[i + 1] ?? "";
+    let c = s[i],
+      prev = s[i + 1] ?? "";
 
     if (c === "*" && prev === "/") lastClosing = i + 2;
     else if (c === "\r" && prev === "\n") lastLineEnd = i;
@@ -34,9 +35,12 @@ function expandCollapsed(s: string, s0: string) {
 
     if (k1 === -1) continue;
 
-    let indices = s.slice(k0 + startMarker.length, k1).split(",").map(Number);
+    let indices = s
+      .slice(k0 + startMarker.length, k1)
+      .split(",")
+      .map(Number);
 
-    if (indices.length < 2 || indices.some(i => Number.isNaN(i))) continue;
+    if (indices.length < 2 || indices.some((i) => Number.isNaN(i))) continue;
     if (indices[1] === -1) indices[1] = s0.length;
 
     s = `${s.slice(0, k0)}${s0.slice(indices[0], indices[1])}${s.slice(k1 + endMarker.length)}`;
@@ -65,7 +69,8 @@ function getImportMap(s: string) {
 
     if (k0 === -1 || k1 === -1) continue;
 
-    let entities = s.slice(k0 + startMarker2.length, k1)
+    let entities = s
+      .slice(k0 + startMarker2.length, k1)
       .trim()
       .replace(/\s+/g, " ")
       .replace(/,\s*$/, "")
@@ -79,7 +84,10 @@ function getImportMap(s: string) {
 
     if (k2 === -1 || k3 === -1) continue;
 
-    let source = s.slice(k2 + startMarker3.length, k3).trim().replace(/(^['"]|['"]$)/g, "");
+    let source = s
+      .slice(k2 + startMarker3.length, k3)
+      .trim()
+      .replace(/(^['"]|['"]$)/g, "");
 
     for (let entity of entities) importMap[entity] = source;
   }
@@ -101,7 +109,10 @@ function getWildcardExports(s: string) {
 
     if (k1 === -1) continue;
 
-    let source = s.slice(k0 + startMarker.length, k1).trim().replace(/(^['"]|['"]$)/g, "");
+    let source = s
+      .slice(k0 + startMarker.length, k1)
+      .trim()
+      .replace(/(^['"]|['"]$)/g, "");
 
     wildcardExports.add(source);
   }
@@ -127,7 +138,8 @@ function removeRedundantReexports(s: string) {
 
     if (k1 === -1) continue;
 
-    let entities = s.slice(k0 + startMarker.length, k1)
+    let entities = s
+      .slice(k0 + startMarker.length, k1)
       .trim()
       .replace(/\s+/g, " ")
       .replace(/,\s*$/, "")
@@ -136,7 +148,7 @@ function removeRedundantReexports(s: string) {
 
     if (entities.length === 0) continue;
 
-    let updatedEntities = entities.filter(entity => {
+    let updatedEntities = entities.filter((entity) => {
       let source = importMap[entity];
 
       return !source || !wildcardExports.has(source);
@@ -145,7 +157,7 @@ function removeRedundantReexports(s: string) {
     if (updatedEntities.length === 0)
       s = `${s.slice(0, k0)}${s.slice(k1 + endMarker.length)}`;
     else {
-      let exportList = updatedEntities.map(s => `  ${s}`).join(",\n");
+      let exportList = updatedEntities.map((s) => `  ${s}`).join(",\n");
 
       s = `${s.slice(0, k0 + startMarker.length)}\n${exportList}\n${s.slice(k1)}`;
     }

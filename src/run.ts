@@ -27,8 +27,7 @@ async function run() {
 
   if (argv.includes("--typecheck")) await runTypeCheck();
 
-  if (argv.includes("--emit-untweaked-types"))
-    await emitTypes();
+  if (argv.includes("--emit-untweaked-types")) await emitTypes();
   else if (argv.includes("--emit-types")) {
     await emitTypes();
     await tweakTypes();

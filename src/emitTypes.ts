@@ -4,9 +4,9 @@ import { formatDuration } from "@t8/date-format";
 import { currentDirName } from "./utils/currentDirName.ts";
 import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
+import { getEmitOptions } from "./utils/getEmitOptions.ts";
 import { log } from "./utils/log.ts";
 import { tempFiles } from "./utils/tempFiles.ts";
-import { getEmitOptions } from "./utils/getEmitOptions.ts";
 
 export async function emitTypes() {
   let t0 = Date.now();

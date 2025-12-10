@@ -6,14 +6,14 @@ import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
 import { log } from "./utils/log.ts";
 import { tempFiles } from "./utils/tempFiles.ts";
+import { getEmitOptions } from "./utils/getEmitOptions.ts";
 
 export async function emitTypes() {
   let t0 = Date.now();
   log("emit types [dts-bundle-generator]");
 
   let configPath = getArgValue("--tsconfig");
-  let inputFile = getArgValue("--emit-input", "index.ts");
-  let outputFile = getArgValue("--emit-output", "dist/index.d.ts");
+  let { inputFile, outputFile } = getEmitOptions();
 
   if (!configPath) {
     configPath = `./tsconfig.${Math.random().toString(36).slice(2)}.json`;

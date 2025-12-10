@@ -170,11 +170,11 @@ function useTypeExports(s: string) {
   return s.replace(/^import \{ (?!type )/mg, "import type { ");
 }
 
-function tweakQuotes(s: string) {
+function normalizeQuotes(s: string) {
   return s.replace(/ from '([^']+)';/g, ' from "$1";');
 }
 
-function tweakTabs(s: string) {
+function replaceTabs(s: string) {
   return s.replace(/^\t+/mg, t => t.replaceAll("\t", "  "));
 }
 
@@ -200,9 +200,9 @@ export async function tweakTypes() {
   // @see https://github.com/timocov/dts-bundle-generator/issues/320
   s = useTypeExports(s);
 
-  s = tweakQuotes(s);
+  s = normalizeQuotes(s);
   s = expandCollapsed(s, s0);
-  s = tweakTabs(s);
+  s = replaceTabs(s);
   s = collapseBlankLines(s);
 
   if (s !== s0) await writeFile(outputFile, s);

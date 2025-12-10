@@ -1,6 +1,6 @@
 import { copyFile } from "node:fs/promises";
 
-export async function init() {
+export async function run() {
   await Promise.all([
     copyFile("src/_biome.json", "dist/_biome.json"),
     copyFile("src/_tsconfig.json", "dist/_tsconfig.json"),
@@ -8,5 +8,5 @@ export async function init() {
 }
 
 (async () => {
-  await init();
+  await run();
 })();

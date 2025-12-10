@@ -167,11 +167,15 @@ function removeRedundantReexports(s: string) {
 }
 
 function useTypeExports(s: string) {
-  return s.replace(/^import \{ (?!type )/g, "import type { ");
+  return s.replace(/^import \{ (?!type )/mg, "import type { ");
 }
 
 function tweakQuotes(s: string) {
   return s.replace(/ from '([^']+)';/g, ' from "$1";');
+}
+
+function tweakTabs(s: string) {
+  return s.replace(/^\t+/mg, t => t.replaceAll("\t", "  "));
 }
 
 function collapseBlankLines(s: string) {
@@ -198,6 +202,7 @@ export async function tweakTypes() {
 
   s = tweakQuotes(s);
   s = expandCollapsed(s, s0);
+  s = tweakTabs(s);
   s = collapseBlankLines(s);
 
   if (s !== s0) await writeFile(outputFile, s);

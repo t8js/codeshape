@@ -7,13 +7,11 @@
     "codeshape": "dist/run.js"
   },
   "scripts": {
-    "build": "npx npm-run-all clean build-bin build-update",
-    "build-bin": "npx esbuild ./src/run.ts --bundle --outdir=dist --platform=node --format=esm",
-    "build-update": "node src/scripts/updateDist.ts",
     "clean": "node -e \"require('node:fs').rmSync('dist', { force: true, recursive: true });\"",
-    "prepublishOnly": "npm run build",
-    "preversion": "npx npm-run-all build shape",
-    "shape": "node dist/run.js --typecheck"
+    "compile": "npx esbuild ./src/run.ts --bundle --outdir=dist --platform=node --format=esm",
+    "preversion": "npx npm-run-all clean compile update-dist shape",
+    "shape": "node dist/run.js --typecheck",
+    "update-dist": "node src/scripts/updateDist.ts"
   },
   "repository": {
     "type": "git",

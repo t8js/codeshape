@@ -167,7 +167,7 @@ function removeRedundantReexports(s: string) {
 }
 
 function useTypeExports(s: string) {
-  return s.replace(/^import \{ (?!type )/mg, "import type { ");
+  return s.replace(/^import \{ (?!type )/gm, "import type { ");
 }
 
 function normalizeQuotes(s: string) {
@@ -175,7 +175,7 @@ function normalizeQuotes(s: string) {
 }
 
 function replaceTabs(s: string) {
-  return s.replace(/^\t+/mg, t => t.replaceAll("\t", "  "));
+  return s.replace(/^\t+/gm, (t) => t.replaceAll("\t", "  "));
 }
 
 function collapseBlankLines(s: string) {

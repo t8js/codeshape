@@ -1,9 +1,9 @@
+import { rename, unlink } from "node:fs/promises";
 import { formatDuration } from "@t8/date-format";
 import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
-import { log } from "./utils/log.ts";
-import { rename, unlink } from "node:fs/promises";
 import { getArgValues } from "./utils/getArgValues.ts";
+import { log } from "./utils/log.ts";
 
 const { argv } = process;
 

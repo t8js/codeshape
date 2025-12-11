@@ -23,9 +23,16 @@ export async function emitTypes() {
     tempFiles.push(configPath, "emit-types");
   }
 
-  let { stdout, stderr } = await exec(
-    `dts-bundle-generator -o ${outputFile} --project ${configPath} --export-referenced-types --silent --no-banner ${inputFile}`,
-  );
+  let params: string[] = [
+    `-o ${outputFile}`,
+    `--project ${configPath}`,
+    "--export-referenced-types",
+    "--silent",
+    "--no-banner",
+    inputFile,
+  ];
+
+  let { stdout, stderr } = await exec(`dts-bundle-generator ${params.join(" ")}`);
   log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stderr) console.log(stderr);

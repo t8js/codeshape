@@ -61,9 +61,9 @@ export async function compile() {
   );
 
   let affectedPackageProps = {
-    main: join(output, "index.cjs"),
-    module: join(output, "index.mjs"),
-    types: join(output, "index.d.ts"),
+    main: `${output}/index.cjs`,
+    module: `${output}/index.mjs`,
+    types: `${output}/index.d.ts`,
   };
 
   console.log(JSON.stringify(affectedPackageProps, null, 2));

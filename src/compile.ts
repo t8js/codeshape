@@ -22,7 +22,7 @@ export async function compile() {
     "--format cjs",
   ];
 
-  if (argv.includes("--emit-types")) params.push("--dts");
+  if (!argv.includes("--no-dts")) params.push("--dts");
   if (platform) params.push(`--platform ${platform}`);
   if (tsConfigPath) params.push(`--tsconfig ${tsConfigPath}`);
 

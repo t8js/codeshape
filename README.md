@@ -14,7 +14,7 @@ Code postprocessing utility, a thin abstraction layer over evolving toolsets:
 - Compile (with `tsdown`)
   - use `--no-compile` to skip this task
   - use `--compile-only` to skip other tasks
-  - use `--emit-types` to emit a type declaration file
+  - use `--no-dts` to skip emitting a type declaration file
   - use `--compile-input <path>` (default: `./index.ts`) and `--compile-output <path>` (default: `./dist`) to set an entry point and an output directory
   - use `--compile-platform` to set a target platform (default: `node`, other options: `browser`, `neutral`)
   - use `--tsconfig <path>` to point to a custom TS config file

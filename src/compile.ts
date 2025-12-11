@@ -27,7 +27,7 @@ export async function compile() {
   if (platform) params.push(`--platform ${platform}`);
   if (tsConfigPath) params.push(`--tsconfig ${tsConfigPath}`);
 
-  let { stdout, stderr } = await exec(`npx tsdown ${params.join(" ")}`);
+  let { stdout, stderr } = await exec(`tsdown ${params.join(" ")}`);
   log(`${formatDuration(Date.now() - t0)}\n`);
 
   if (stderr) console.log(stderr);

@@ -1,4 +1,4 @@
-import { rename, unlink } from "node:fs/promises";
+import { readFile, rename, unlink, writeFile } from "node:fs/promises";
 import { formatDuration } from "@t8/date-format";
 import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
@@ -39,6 +39,18 @@ export async function compile() {
 
   try {
     await rename(`${output}/index.d.mts`, `${output}/index.d.ts`);
+  } catch {}
+
+  try {
+    let s = (await readFile(`${output}/index.d.ts`)).toString();
+
+    s = s
+      .replace(/^\/\/#(region \S+|endregion)$/mg, "")
+      .replace(/\r\n/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
+    await writeFile(`${output}/index.d.ts`, `${s}\n`);
   } catch {}
 
   let affectedPackageProps = {

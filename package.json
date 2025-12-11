@@ -1,7 +1,7 @@
 {
   "name": "codeshape",
   "version": "2.5.7",
-  "description": "Code checking utility: typecheck + lint + format",
+  "description": "Code postprocessing utility: typecheck, lint, format, compile, emit types",
   "type": "module",
   "bin": {
     "codeshape": "dist/run.js"

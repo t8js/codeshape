@@ -1,1 +1,1 @@
-export type ScriptTag = "lint-format" | "typecheck" | "emit-types" | "all";
+export type ScriptTag = "lint-format" | "typecheck" | "compile" | "all";

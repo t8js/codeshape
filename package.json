@@ -29,6 +29,7 @@
   "dependencies": {
     "@t8/date-format": "^1.0.14",
     "@typescript/native-preview": "^7.0.0-dev.20251208.1",
-    "dts-bundle-generator": "^9.5.1"
+    "tsdown": "^0.17.2",
+    "typescript": "^5.9.3"
   }
 }

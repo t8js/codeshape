@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-import { emitTypes } from "./emitTypes.ts";
+import { compile } from "./compile.ts";
 import { runLintFormat } from "./runLintFormat.ts";
 import { runTypeCheck } from "./runTypeCheck.ts";
-import { tweakTypes } from "./tweakTypes.ts";
 import { isExecError } from "./utils/isExecError.ts";
 import { tempFiles } from "./utils/tempFiles.ts";
 
@@ -14,26 +13,16 @@ async function run() {
     return;
   }
 
-  if (argv.includes("--emit-untweaked-types-only")) {
-    await emitTypes();
-    return;
-  }
-
-  if (argv.includes("--emit-types-only")) {
-    await emitTypes();
-    await tweakTypes();
+  if (argv.includes("--compile-only")) {
+    await compile();
     return;
   }
 
   if (argv.includes("--typecheck")) await runTypeCheck();
 
-  if (argv.includes("--emit-untweaked-types")) await emitTypes();
-  else if (argv.includes("--emit-types")) {
-    await emitTypes();
-    await tweakTypes();
-  }
-
   await runLintFormat();
+
+  if (argv.includes("--compile")) await compile();
 }
 
 (async () => {

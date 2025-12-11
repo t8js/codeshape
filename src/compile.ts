@@ -4,6 +4,7 @@ import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
 import { getArgValues } from "./utils/getArgValues.ts";
 import { log } from "./utils/log.ts";
+import { join } from "node:path";
 
 const { argv } = process;
 
@@ -34,17 +35,17 @@ export async function compile() {
   if (stdout) console.log(stdout);
 
   try {
-    await unlink(`${output}/index.d.cts`);
+    await unlink(join(output, "index.d.cts"));
   } catch {}
 
   try {
-    await rename(`${output}/index.d.mts`, `${output}/index.d.ts`);
+    await rename(join(output, "index.d.mts"), join(output, "index.d.ts"));
   } catch {}
 
   await Promise.all(
     ["index.cjs", "index.mjs", "index.d.ts"].map(async name => {
       try {
-        let path = `${output}/${name}`;
+        let path = join(output, name);
         let s = (await readFile(path)).toString();
 
         s = s
@@ -60,9 +61,9 @@ export async function compile() {
   );
 
   let affectedPackageProps = {
-    main: `${output}/index.cjs`,
-    module: `${output}/index.mjs`,
-    types: `${output}/index.d.ts`,
+    main: join(output, "index.cjs"),
+    module: join(output, "index.mjs"),
+    types: join(output, "index.d.ts"),
   };
 
   console.log(JSON.stringify(affectedPackageProps, null, 2));

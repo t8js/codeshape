@@ -41,17 +41,23 @@ export async function compile() {
     await rename(`${output}/index.d.mts`, `${output}/index.d.ts`);
   } catch {}
 
-  try {
-    let s = (await readFile(`${output}/index.d.ts`)).toString();
+  await Promise.all(
+    ["index.cjs", "index.mjs", "index.d.ts"].map(async name => {
+      try {
+        let path = `${output}/${name}`;
+        let s = (await readFile(path)).toString();
 
-    s = s
-      .replace(/^\/\/#(region \S+|endregion)$/gm, "")
-      .replace(/\r\n/g, "\n")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim();
+        s = s
+          .replace(/^\/\/#(region \S+|endregion)$/gm, "")
+          .replace(/\r\n/g, "\n")
+          .replace(/\n{3,}/g, "\n\n")
+          .replace(/^\t+/gm, t => t.replaceAll("\t", "  "))
+          .trim();
 
-    await writeFile(`${output}/index.d.ts`, `${s}\n`);
-  } catch {}
+        await writeFile(path, `${s}\n`);
+      } catch {}
+    }),
+  );
 
   let affectedPackageProps = {
     main: `${output}/index.cjs`,

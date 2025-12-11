@@ -13,16 +13,19 @@ async function run() {
     return;
   }
 
+  if (argv.includes("--lint-format-only")) {
+    await runLintFormat();
+    return;
+  }
+
   if (argv.includes("--compile-only")) {
     await compile();
     return;
   }
 
-  if (argv.includes("--typecheck")) await runTypeCheck();
-
-  await runLintFormat();
-
-  if (argv.includes("--compile")) await compile();
+  if (!argv.includes("--no-typecheck")) await runTypeCheck();
+  if (!argv.includes("--no-lint-format")) await runLintFormat();
+  if (!argv.includes("--no-compile")) await compile();
 }
 
 (async () => {

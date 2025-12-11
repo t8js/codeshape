@@ -1,12 +1,17 @@
-import { copyFile } from "node:fs/promises";
+import { copyFile, lstat, readdir } from "node:fs/promises";
+
+const configsDirPath = "src/configs";
 
 export async function run() {
-  await Promise.all([
-    copyFile("src/_biome.json", "dist/_biome.json"),
-    copyFile("src/_tsconfig.json", "dist/_tsconfig.json"),
-  ]);
+  let configs = await readdir(configsDirPath);
+
+  await Promise.all(
+    configs.map(async name => {
+      let path = `${configsDirPath}/${name}`;
+
+      if ((await lstat(path)).isFile()) await copyFile(path, `dist/${name}`);
+    }),
+  );
 }
 
-(async () => {
-  await run();
-})();
+await run();

@@ -3,6 +3,7 @@ import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
 import { log } from "./utils/log.ts";
 import { rename, unlink } from "node:fs/promises";
+import { getArgValues } from "./utils/getArgValues.ts";
 
 const { argv } = process;
 
@@ -10,13 +11,13 @@ export async function compile() {
   let t0 = Date.now();
   log("Compile [tsdown]");
 
-  let input = getArgValue("--compile-input", "./index.ts");
+  let input = getArgValues("--compile-input", ["./index.ts"]);
   let output = getArgValue("--compile-output", "./dist");
   let platform = getArgValue("--compile-platform");
   let tsConfigPath = getArgValue("--tsconfig");
 
   let params = [
-    input,
+    input.join(" "),
     `-d ${output}`,
     "--format esm",
     "--format cjs",

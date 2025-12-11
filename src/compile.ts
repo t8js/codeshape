@@ -45,7 +45,7 @@ export async function compile() {
     let s = (await readFile(`${output}/index.d.ts`)).toString();
 
     s = s
-      .replace(/^\/\/#(region \S+|endregion)$/mg, "")
+      .replace(/^\/\/#(region \S+|endregion)$/gm, "")
       .replace(/\r\n/g, "\n")
       .replace(/\n{3,}/g, "\n\n")
       .trim();

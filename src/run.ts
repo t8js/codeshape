@@ -23,6 +23,12 @@ async function run() {
     return;
   }
 
+  if (argv.includes("--check")) {
+    await runTypeCheck();
+    await runLintFormat();
+    return;
+  }
+
   if (!argv.includes("--no-typecheck")) await runTypeCheck();
   if (!argv.includes("--no-lint-format")) await runLintFormat();
   if (!argv.includes("--no-compile")) await compile();

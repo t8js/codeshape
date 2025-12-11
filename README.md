@@ -1,6 +1,8 @@
 # codeshape
 
-Code postprocessing utility, a thin abstraction layer over evolving toolsets:
+Code postprocessing utility, a thin abstraction layer over evolving toolsets.
+
+Usage: `npx codeshape <path> [...<more_paths>] [...--flags]`
 
 - Typecheck (with `tsgo` from `@typescript/native-preview`)
   - use `--no-typecheck` to skip this task
@@ -19,6 +21,8 @@ Code postprocessing utility, a thin abstraction layer over evolving toolsets:
   - use `--compile-platform` to set a target platform (default: `node`, other options: `browser`, `neutral`)
   - use `--tsconfig <path>` to point to a custom TS config file
 
-Usage: `npx codeshape <path> [...<more_paths>] [...--flags]`
+Use `--check` to run only the checking tasks: typecheck, lint + format.
 
-Example: `npx codeshape` runs typechecking, linting, formatting, adding a fix commit if needed, compiling `./index.ts` to `./dist/index.js`, emitting type declarations to `./dist/index.d.ts`.
+Example 1: `npx codeshape` runs typechecking, linting, formatting, adding a fix commit if needed, compiling `./index.ts` to `./dist/index.js`, emitting type declarations to `./dist/index.d.ts`.
+
+Example 2: `npx codeshape --check` runs typechecking, linting, formatting, adding a fix commit if needed.

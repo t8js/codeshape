@@ -23,6 +23,7 @@ Performed tasks:
   - use `--no-dts` to skip emitting a type declaration file
   - use `--compile-input <...space-separated paths>` (default: `./index.ts`) and `--compile-output <path>` (default: `./dist`) to set an entry point and an output directory
   - use `--compile-platform` to set a target platform (default: `node`, other options: `browser`, `neutral`)
+  - use `--minify` to minify the output
   - use `--tsconfig <path>` to point to a custom TS config file
 
 Use `--check` to run only the checking tasks: typecheck, lint + format.

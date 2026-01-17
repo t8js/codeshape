@@ -22,13 +22,11 @@ export async function compile() {
     `-d ${output}`,
     "--format esm",
     "--format cjs",
-  ];
-
-  if (!argv.includes("--no-dts")) params.push("--dts");
-  if (argv.includes("--minify")) params.push("--minify");
-
-  if (platform) params.push(`--platform ${platform}`);
-  if (tsConfigPath) params.push(`--tsconfig ${tsConfigPath}`);
+    !argv.includes("--no-dts") && "--dts",
+    argv.includes("--minify") && "--minify",
+    platform && `--platform ${platform}`,
+    tsConfigPath && `--tsconfig ${tsConfigPath}`,
+  ].filter(x => typeof x === "string");
 
   let { stdout, stderr } = await exec(`tsdown ${params.join(" ")}`);
   log(`${formatDuration(Date.now() - t0)}\n`);

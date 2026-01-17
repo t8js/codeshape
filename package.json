@@ -27,9 +27,9 @@
     "@types/node": "22.15.3"
   },
   "dependencies": {
-    "@t8/date-format": "^1.0.14",
-    "@typescript/native-preview": "^7.0.0-dev.20251208.1",
-    "tsdown": "^0.17.2",
+    "@t8/date-format": "^1.0.16",
+    "@typescript/native-preview": "^7.0.0-dev.20260117.1",
+    "tsdown": "^0.20.0-beta.3",
     "typescript": "^5.9.3"
   }
 }

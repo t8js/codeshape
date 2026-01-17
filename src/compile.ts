@@ -26,7 +26,7 @@ export async function compile() {
     argv.includes("--minify") && "--minify",
     platform && `--platform ${platform}`,
     tsConfigPath && `--tsconfig ${tsConfigPath}`,
-  ].filter(x => typeof x === "string");
+  ].filter((x) => typeof x === "string");
 
   let { stdout, stderr } = await exec(`tsdown ${params.join(" ")}`);
   log(`${formatDuration(Date.now() - t0)}\n`);

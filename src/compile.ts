@@ -25,6 +25,8 @@ export async function compile() {
   ];
 
   if (!argv.includes("--no-dts")) params.push("--dts");
+  if (argv.includes("--minify")) params.push("--minify");
+
   if (platform) params.push(`--platform ${platform}`);
   if (tsConfigPath) params.push(`--tsconfig ${tsConfigPath}`);
 

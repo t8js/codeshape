@@ -17,7 +17,7 @@ Performed tasks:
   - use `--no-commit` to skip the fix commit
   - use `-m <message>` to set a fix commit message (default: `lint`)
   - use `--vcs-disabled` to opt out from using `.gitignore`
-  - use a `.lintincludes` plain-text file to list path patterns affected by this task (in a format similar to `.gitignore`)
+  - use a `.lintincludes` plain-text file to list specific path patterns affected by this task (in a format similar to `.gitignore`) (default: the entire current directory), mark excluded paths with a leading `!` in this file
 - Compile (with `tsdown`)
   - use `--no-compile` to skip this task
   - use `--compile-only` to skip other tasks
@@ -29,8 +29,10 @@ Performed tasks:
 
 Use `--check` to run only the checking tasks: typecheck, lint + format.
 
-Example 1: `npx codeshape` runs typechecking, linting, formatting, adding a fix commit if needed, compiling `./index.ts` to `./dist/index.mjs` and `./dist/index.cjs`, emitting type declarations to `./dist/index.d.ts`.
+Example 1: `npx codeshape` runs typechecking, linting, formatting, adds a fix commit if needed, compiles `./index.ts` to `./dist/index.mjs` and `./dist/index.cjs`, emits type declarations to `./dist/index.d.ts`.
 
-Example 2: `npx codeshape --check` runs typechecking, linting, formatting, adding a fix commit if needed.
+Example 2: `npx codeshape --check` runs typechecking, linting, formatting, adds a fix commit if needed.
 
 Example 3: `npx codeshape --check --no-commit` runs typechecking, linting, formatting (without adding a fix commit).
+
+Any of these one-liners can be run in a directory or added to `package.json` scripts without manually installing packages.

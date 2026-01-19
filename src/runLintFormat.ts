@@ -31,7 +31,7 @@ export async function runLintFormat() {
     }
 
     // If `includes` lists only negations, add all files first to exclude from
-    if (includes.length !== 0 && includes.every(x => x.startsWith("!")))
+    if (includes.length !== 0 && includes.every((x) => x.startsWith("!")))
       includes.unshift("**");
   }
 

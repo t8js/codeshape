@@ -25,7 +25,7 @@ export async function runLintFormat() {
           .toString()
           .trim()
           .split(/\r?\n/)
-          .filter((x) => x !== "");
+          .filter((x) => x.trim() !== "" && !x.startsWith("#"));
         break;
       } catch {}
     }

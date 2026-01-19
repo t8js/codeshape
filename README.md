@@ -17,6 +17,7 @@ Performed tasks:
   - use `--no-commit` to skip the fix commit
   - use `-m <message>` to set a fix commit message (default: `lint`)
   - use `--vcs-disabled` to opt out from using `.gitignore`
+  - use a `.lintincludes` plain-text file to list path patterns affected by this task (in a format similar to `.gitignore`)
 - Compile (with `tsdown`)
   - use `--no-compile` to skip this task
   - use `--compile-only` to skip other tasks

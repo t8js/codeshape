@@ -19,7 +19,11 @@
   },
   "keywords": [
     "code style",
-    "lint"
+    "lint",
+    "format code",
+    "bundle",
+    "d.ts",
+    "type declarations"
   ],
   "author": "axtk",
   "license": "MIT",

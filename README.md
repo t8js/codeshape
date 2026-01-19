@@ -32,3 +32,5 @@ Use `--check` to run only the checking tasks: typecheck, lint + format.
 Example 1: `npx codeshape` runs typechecking, linting, formatting, adding a fix commit if needed, compiling `./index.ts` to `./dist/index.mjs` and `./dist/index.cjs`, emitting type declarations to `./dist/index.d.ts`.
 
 Example 2: `npx codeshape --check` runs typechecking, linting, formatting, adding a fix commit if needed.
+
+Example 3: `npx codeshape --check --no-commit` runs typechecking, linting, formatting (without adding a fix commit).

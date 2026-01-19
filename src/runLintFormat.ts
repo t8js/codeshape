@@ -18,13 +18,18 @@ export async function runLintFormat() {
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");
 
-  try {
-    includes = (await readFile("./.biomeincludes"))
-      .toString()
-      .trim()
-      .split(/\r?\n/)
-      .filter((x) => x !== "");
-  } catch {}
+  for (let includesFile of [".lintincludes", ".biomeincludes"]) {
+    if (await canAccess(includesFile)) {
+      try {
+        includes = (await readFile(includesFile))
+          .toString()
+          .trim()
+          .split(/\r?\n/)
+          .filter((x) => x !== "");
+        break;
+      } catch {}
+    }
+  }
 
   let hasOwnConfig = (
     await Promise.all(["./biome.json", "./biome.jsonc"].map(canAccess))

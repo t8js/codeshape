@@ -29,11 +29,11 @@ export async function runLintFormat() {
         break;
       } catch {}
     }
-
-    // If `includes` lists only negations, add all files first to exclude from
-    if (includes.length !== 0 && includes.every((x) => x.startsWith("!")))
-      includes.unshift("**");
   }
+
+  // If `includes` lists only negations, add all files first to exclude from
+  if (includes.length !== 0 && includes.every((x) => x.startsWith("!")))
+    includes.unshift("**");
 
   let hasOwnConfig = (
     await Promise.all(["./biome.json", "./biome.jsonc"].map(canAccess))

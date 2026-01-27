@@ -66,12 +66,8 @@ export async function runLintFormat() {
     tempFiles.push("./biome.json", "lint-format");
   }
 
-  let version = getArgValue("--lint-format-version", "");
-
-  if (version !== "" && !version.startsWith("@")) version = `@${version}`;
-
   let { stdout, stderr } = await exec(
-    `npx @biomejs/biome${version} check --write ${(await getPaths()).join(" ")}`,
+    `biome check --write ${(await getPaths()).join(" ")}`,
   );
   log(`${formatDuration(Date.now() - t0)}\n`);
 

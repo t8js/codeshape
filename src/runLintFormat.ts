@@ -21,7 +21,9 @@ export async function runLintFormat() {
   for (let includeFile of [".lintinclude", ".lintincludes", ".biomeincludes"]) {
     if (await canAccess(includeFile)) {
       if (includeFile !== ".lintinclude")
-        log(`File name "${includeFile}" is deprecated, use ".lintinclude" instead.`);
+        log(
+          `File name "${includeFile}" is deprecated, use ".lintinclude" instead.`,
+        );
 
       try {
         includes = (await readFile(includeFile))

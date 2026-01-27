@@ -18,10 +18,13 @@ export async function runLintFormat() {
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");
 
-  for (let includesFile of [".lintincludes", ".biomeincludes"]) {
-    if (await canAccess(includesFile)) {
+  for (let includeFile of [".lintinclude", ".lintincludes", ".biomeincludes"]) {
+    if (await canAccess(includeFile)) {
+      if (includeFile !== ".lintinclude")
+        log(`File name "${includeFile}" is deprecated, use ".lintinclude" instead.`);
+
       try {
-        includes = (await readFile(includesFile))
+        includes = (await readFile(includeFile))
           .toString()
           .trim()
           .split(/\r?\n/)

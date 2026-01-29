@@ -20,7 +20,11 @@ async function getEffectiveLines(fileName: string) {
 }
 
 const ignoreFile = ".lintignore";
-const supportedIncludeFiles = [".lintinclude", ".lintincludes", ".biomeincludes"];
+const supportedIncludeFiles = [
+  ".lintinclude",
+  ".lintincludes",
+  ".biomeincludes",
+];
 const preferredIncludeFile = supportedIncludeFiles[0];
 
 export async function runLintFormat() {
@@ -48,7 +52,7 @@ export async function runLintFormat() {
     try {
       let ignores = await getEffectiveLines(ignoreFile);
 
-      if (ignores.length !== 0) includes.push(...ignores.map(s => `!${s}`));
+      if (ignores.length !== 0) includes.push(...ignores.map((s) => `!${s}`));
     } catch {}
   }
 

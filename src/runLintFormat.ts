@@ -11,6 +11,18 @@ import { getPaths } from "./utils/getPaths.ts";
 import { log } from "./utils/log.ts";
 import { tempFiles } from "./utils/tempFiles.ts";
 
+async function getEffectiveLines(fileName: string) {
+  return (await readFile(fileName))
+    .toString()
+    .trim()
+    .split(/\r?\n/)
+    .filter((x) => x.trim() !== "" && !x.startsWith("#"));
+}
+
+const ignoreFile = ".lintignore";
+const supportedIncludeFiles = [".lintinclude", ".lintincludes", ".biomeincludes"];
+const preferredIncludeFile = supportedIncludeFiles[0];
+
 export async function runLintFormat() {
   let t0 = Date.now();
   log("Lint and format [biome]");
@@ -18,22 +30,26 @@ export async function runLintFormat() {
   let includes: string[] = [];
   let isGitDir = await canAccess("./.git");
 
-  for (let includeFile of [".lintinclude", ".lintincludes", ".biomeincludes"]) {
+  for (let includeFile of supportedIncludeFiles) {
     if (await canAccess(includeFile)) {
-      if (includeFile !== ".lintinclude")
+      if (includeFile !== preferredIncludeFile)
         log(
-          `File name "${includeFile}" is deprecated, use ".lintinclude" instead.`,
+          `File name "${includeFile}" is deprecated, use "${preferredIncludeFile}" instead.`,
         );
 
       try {
-        includes = (await readFile(includeFile))
-          .toString()
-          .trim()
-          .split(/\r?\n/)
-          .filter((x) => x.trim() !== "" && !x.startsWith("#"));
+        includes = await getEffectiveLines(includeFile);
         break;
       } catch {}
     }
+  }
+
+  if (await canAccess(ignoreFile)) {
+    try {
+      let ignores = await getEffectiveLines(ignoreFile);
+
+      if (ignores.length !== 0) includes.push(...ignores.map(s => `!${s}`));
+    } catch {}
   }
 
   // If `includes` lists only negations, add all files first to exclude from

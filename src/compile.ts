@@ -1,6 +1,6 @@
 import { readFile, rename, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { formatDuration } from "@t8/date-format";
+import { formatDuration } from "dateshape";
 import { exec } from "./utils/exec.ts";
 import { getArgValue } from "./utils/getArgValue.ts";
 import { getArgValues } from "./utils/getArgValues.ts";

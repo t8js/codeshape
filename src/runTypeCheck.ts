@@ -1,4 +1,4 @@
-import { formatDuration } from "@t8/date-format";
+import { formatDuration } from "dateshape";
 import { exec } from "./utils/exec.ts";
 import { log } from "./utils/log.ts";
 

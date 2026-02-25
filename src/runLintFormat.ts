@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { formatDuration } from "@t8/date-format";
+import { formatDuration } from "dateshape";
 import type { BiomeConfig } from "./types/BiomeConfig.ts";
 import { canAccess } from "./utils/canAccess.ts";
 import { currentDirName } from "./utils/currentDirName.ts";
